@@ -16,6 +16,7 @@ interface TasksContextData {
 
   tasks: Task[];
   createTask: (task: Task) => void;
+  excludeTask: (taskId: number) => void;
 }
 
 const TasksContext = createContext<TasksContextData>(
@@ -35,9 +36,18 @@ export function TasksProvider({ children }: TaskProviderProps) {
     ])
   }
 
+  function excludeTask(taskId: number) {
+
+    let indexOnArray = tasks.findIndex(task => task.id === taskId);
+    let newTasksArray = [...tasks];
+    newTasksArray.splice(indexOnArray, 1);
+
+    setTasks(newTasksArray);
+  }
+
   return (
 
-    <TasksContext.Provider value={{ tasks, createTask }}>
+    <TasksContext.Provider value={{ tasks, createTask, excludeTask }}>
       {children}
     </TasksContext.Provider>
   )

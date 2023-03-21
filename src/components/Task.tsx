@@ -1,5 +1,6 @@
 import { Flex, Text, IconButton, Checkbox } from "@chakra-ui/react"
 import { DeleteIcon } from "@chakra-ui/icons"
+import { useTasks } from "../hooks/useTasks"
 
 interface TaskProps {
 
@@ -9,6 +10,13 @@ interface TaskProps {
 }
 
 export function Task(props: TaskProps) {
+
+  const { excludeTask } = useTasks();
+
+  function handleExcludeTask() {
+
+    excludeTask(props.id);
+  }
 
   return(
     <Flex
@@ -38,6 +46,7 @@ export function Task(props: TaskProps) {
         color="white"
         variant="ghost"
         _hover={{bg: "black"}}
+        onClick={handleExcludeTask}
       >
       </IconButton>
     </Flex>
