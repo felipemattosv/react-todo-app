@@ -1,7 +1,10 @@
 import { Flex, Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react"
 import { Task } from "./Task"
+import { useTasks } from "../hooks/useTasks"
 
 export function TasksList() {
+
+  const { tasks } = useTasks();
 
   return(
     <Flex
@@ -19,7 +22,11 @@ export function TasksList() {
         </TabList>
         <TabPanels>
           <TabPanel>
-            <p>All tasks</p>
+            {tasks.map(task => {
+              return (
+                <Task key={task.id} id={task.id} title={task.title} isCompleted={task.isCompleted}/>
+              )
+            })}
           </TabPanel>
           <TabPanel>
             <p>Only Active tasks</p>

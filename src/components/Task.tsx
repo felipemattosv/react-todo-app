@@ -1,7 +1,14 @@
 import { Flex, Text, IconButton, Checkbox } from "@chakra-ui/react"
 import { DeleteIcon } from "@chakra-ui/icons"
 
-export function Task() {
+interface TaskProps {
+
+  title: string;
+  id: number;
+  isCompleted: boolean;
+}
+
+export function Task(props: TaskProps) {
 
   return(
     <Flex
@@ -16,9 +23,12 @@ export function Task() {
       mb="1rem"
     >
       <Flex align="center">
-        <Checkbox size="md"></Checkbox>
+        <Checkbox 
+          size="md"
+          isChecked = {props.isCompleted}
+        ></Checkbox>
         <Text fontSize="2xl" color="white" ml="1rem">
-          task name
+          {props.title}
         </Text>
       </Flex>
       <IconButton
