@@ -11,11 +11,16 @@ interface TaskProps {
 
 export function Task(props: TaskProps) {
 
-  const { excludeTask } = useTasks();
+  const { excludeTask, changeTaskState } = useTasks();
 
   function handleExcludeTask() {
 
     excludeTask(props.id);
+  }
+
+  function handleCheckBox() {
+
+    changeTaskState(props.id);
   }
 
   return(
@@ -34,6 +39,7 @@ export function Task(props: TaskProps) {
         <Checkbox 
           size="md"
           isChecked = {props.isCompleted}
+          onChange = {handleCheckBox}
         ></Checkbox>
         <Text fontSize="2xl" color="white" ml="1rem">
           {props.title}

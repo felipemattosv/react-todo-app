@@ -17,6 +17,7 @@ interface TasksContextData {
   tasks: Task[];
   createTask: (task: Task) => void;
   excludeTask: (taskId: number) => void;
+  changeTaskState: (taskId: number) => void;
 }
 
 const TasksContext = createContext<TasksContextData>(
@@ -45,9 +46,18 @@ export function TasksProvider({ children }: TaskProviderProps) {
     setTasks(newTasksArray);
   }
 
+  function changeTaskState(taskId: number) {
+
+    let indexOnArray = tasks.findIndex(task => task.id === taskId);
+    let newTasksArray = [...tasks];
+    newTasksArray[indexOnArray].isCompleted = !(newTasksArray[indexOnArray].isCompleted);
+
+    setTasks(newTasksArray);
+  }
+
   return (
 
-    <TasksContext.Provider value={{ tasks, createTask, excludeTask }}>
+    <TasksContext.Provider value={{ tasks, createTask, excludeTask, changeTaskState }}>
       {children}
     </TasksContext.Provider>
   )

@@ -29,10 +29,24 @@ export function TasksList() {
             })}
           </TabPanel>
           <TabPanel>
-            <p>Only Active tasks</p>
+            {tasks.map(task => {
+              if (task.isCompleted === false) {
+                return (
+                  <Task key={task.id} id={task.id} title={task.title} isCompleted={task.isCompleted}/>
+                )
+              }
+              else return null;
+            })}
           </TabPanel>
           <TabPanel>
-            <p>Only Completed tasks</p>
+          {tasks.map(task => {
+              if (task.isCompleted === true) {
+                return (
+                  <Task key={task.id} id={task.id} title={task.title} isCompleted={task.isCompleted}/>
+                )
+              }
+              else return null;
+            })}
           </TabPanel>
         </TabPanels>
       </Tabs>
