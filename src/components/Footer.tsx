@@ -1,6 +1,9 @@
 import { Flex, Divider, Text} from "@chakra-ui/react"
+import { useTasks } from "../hooks/useTasks";
 
 export function Footer() {
+
+  const { tasksLeft } = useTasks();
 
   return(
     <Flex
@@ -18,7 +21,7 @@ export function Footer() {
         fontSize="xl"
         color="white"
       >
-        X items left
+        {tasksLeft} items left
       </Text>
     </Flex>
   )

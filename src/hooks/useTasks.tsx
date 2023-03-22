@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState, useContext } from "react";
+import { createContext, ReactNode, useState, useContext, useEffect } from "react";
 
 interface Task {
 
@@ -18,6 +18,7 @@ interface TasksContextData {
   createTask: (task: Task) => void;
   excludeTask: (taskId: number) => void;
   changeTaskState: (taskId: number) => void;
+  tasksLeft: number;
 }
 
 const TasksContext = createContext<TasksContextData>(
@@ -28,6 +29,21 @@ const TasksContext = createContext<TasksContextData>(
 export function TasksProvider({ children }: TaskProviderProps) {
 
   const [tasks, setTasks] = useState<Task[]>([]);
+
+  const [tasksLeft, setTasksLeft] = useState(0);
+
+  useEffect(() => {
+
+    let count = 0;
+
+    tasks.forEach(task => {
+      if (task.isCompleted === false) {
+        count++;
+      }
+    })
+    
+    setTasksLeft(count);
+  }, [tasks]);
 
   function createTask(taskInput: Task) {
 
@@ -57,7 +73,7 @@ export function TasksProvider({ children }: TaskProviderProps) {
 
   return (
 
-    <TasksContext.Provider value={{ tasks, createTask, excludeTask, changeTaskState }}>
+    <TasksContext.Provider value={{ tasks, createTask, excludeTask, changeTaskState, tasksLeft }}>
       {children}
     </TasksContext.Provider>
   )
